@@ -1,0 +1,12 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+  - test
+
+test:
+   stage: test
+   image: "docker.pluspole.se/libdeque:latest"
+   script: "make -B test"
+
+
