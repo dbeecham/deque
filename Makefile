@@ -1,5 +1,6 @@
-CFLAGS += -O0 -g3 -Iinclude -fPIC -Wall -Wextra -Wno-unused-but-set-variable
-LDLIBS += -pthread
+CFLAGS = -O0 -g3 -Iinclude -fPIC -Wall -Wextra -Wno-unused-but-set-variable $(EXTRA_CFLAGS)
+LDFLAGS = $(EXTRA_LDFLAGS)
+LDLIBS = -pthread $(EXTRA_LDLIBS)
 DESTDIR = /
 PREFIX = /usr
 RAGEL = ragel
@@ -54,8 +55,13 @@ install: libdeque.so | $(DESTDIR)$(PREFIX)/lib $(DESTDIR)$(PREFIX)/include
 # TESTS #
 #########
 
-test: CFLAGS += -I./vendor/munit/
+test: CFLAGS += -I./vendor/munit/ -fprofile-arcs -ftest-coverage 
+test: LDLIBS += -lgcov --coverage
 test: test_driver
+	./test_driver && gcov deque.o && gcovr -r . -e ".*munit.c" -e "tests/test_.*.c"
+
+check: CFLAGS += -I./vendor/munit/
+check: test_driver
 	./test_driver
 
 test_driver: test_driver.o test_deque.o munit.o deque.o
@@ -79,4 +85,7 @@ ci:
 	find . -name "*.c" -o -name "*.h" -o -name "*.rl" -o -iname "Makefile" | entr make -B test
 
 clean:
-	rm -f *.o *.so test_driver
+	rm -f *.o test_driver
+
+distclean: clean
+	rm -f *.so
