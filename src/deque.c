@@ -1,7 +1,6 @@
-#include "deque.h"
-
 #include <stdlib.h>
 #include <stdint.h>
+#include "deque.h"
 
 /* 
  * These structures is defined in here instead of in the header file so that
