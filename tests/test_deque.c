@@ -1,6 +1,7 @@
 #include "munit.h"
 #include "deque.h"
 
+
 MunitResult test_it_initializes(const MunitParameter params[], void * data)
 {
     deque_t * deque;
@@ -11,6 +12,9 @@ MunitResult test_it_initializes(const MunitParameter params[], void * data)
     deque_free(&deque);
 
     return MUNIT_OK;
+
+    (void)params;
+    (void)data;
 }
 
 
@@ -43,6 +47,8 @@ MunitResult test_it_can_push_pop(const MunitParameter params[], void * data)
     munit_assert_ptr_null(deque);
 
     return MUNIT_OK;
+    (void)params;
+    (void)data;
 }
 
 
@@ -92,7 +98,11 @@ MunitResult test_iteration(const MunitParameter params[], void * data)
     munit_assert_ptr_null(deque);
 
     return MUNIT_OK;
+
+    (void)params;
+    (void)data;
 }
+
 
 MunitResult test_iteration_can_remove(const MunitParameter params[], void * data)
 {
@@ -170,7 +180,11 @@ MunitResult test_iteration_can_remove(const MunitParameter params[], void * data
     munit_assert_ptr_null(deque);
 
     return MUNIT_OK;
+
+    (void)data;
+    (void)params;
 }
+
 
 MunitTest deque_tests[] = {
     {
