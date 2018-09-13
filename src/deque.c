@@ -147,6 +147,8 @@ int deque_iterator_remove_current(deque_iterator_t * i)
     else {
         i->deque->head = item_to_remove->next;
     }
+    
+    free(item_to_remove);
 
     return 0;
 
