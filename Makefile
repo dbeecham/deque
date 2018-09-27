@@ -1,5 +1,5 @@
 
-CFLAGS         = -fPIC -Iinclude -Wall -Wextra -Wno-used-result \
+CFLAGS         = -fPIC -Iinclude -Wall -Wextra \
                  -Wno-implicit-fallthrough -Wno-unused-const-variable \
                  -std=c11 -g3 -Os -D_FORTIFY_SOURCE=2 -fexceptions \
                  -fasynchronous-unwind-tables \
@@ -64,8 +64,8 @@ install: libdeque.so | $(DESTDIR)$(PREFIX)/lib $(DESTDIR)$(PREFIX)/include
 test: CFLAGS += -I./vendor/munit/ -fprofile-arcs -ftest-coverage 
 test: LDLIBS += -lgcov --coverage
 test: test_driver
-	@echo "$(TEST_COLOR)TEST$(NO_COLOR)  $@"
-	$(Q)./test_driver && gcov deque.o && gcovr -r . -e ".*munit.c" -e "tests/test_.*.c"
+	@echo "$(TEST_COLOR)TEST$(NO_COLOR) $@"
+	$(Q)./test_driver && gcov src/*.c src/*.c.rl && gcovr -r . -e ".*munit.c" -e "tests/test_.*.c"
 
 check: CFLAGS += -I./vendor/munit/
 check: test_driver
